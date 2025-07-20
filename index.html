@@ -1532,7 +1532,7 @@
     tempRam.className = 'modelRamOption';
     tempRam.innerHTML = ModelListTemp.innerText;
     tempRam.onclick = () => {
-      location.replace(`emulator.html?model=${model}`)
+      location.replace(`index.html?model=${model}`)
     }
     ul.appendChild(tempRam);
 
@@ -1553,7 +1553,7 @@
         liRam.className = 'modelRamOption';
         liRam.innerHTML = ramName;
         liRam.onclick = () => {
-          location.replace(`emulator.html?model=${model}&ram_code=${ramCode}`);
+          location.replace(`index.html?model=${model}&ram_code=${ramCode}`);
         }
         ul.appendChild(liRam);
       }
@@ -1575,7 +1575,7 @@
       return;
     }
     localStorage.setItem(`ram_name_${model}_${ramCode}`, ramName);
-    location.replace(`emulator.html?model=${model}&ram_code=${ramCode}`);
+    location.replace(`index.html?model=${model}&ram_code=${ramCode}`);
   }
 
   const changeModel = async () => {
@@ -1763,12 +1763,12 @@
         recentEl.onclick = () => {
           if (!customModelKey) {
             if (!ramCode) {
-              location.replace(`emulator.html?model=${model}`)
+              location.replace(`index.html?model=${model}`)
               return
             }
-            location.replace(`emulator.html?model=${model}&ram_code=${ramCode}`)
+            location.replace(`index.html?model=${model}&ram_code=${ramCode}`)
           } else {
-            location.replace(`emulator.html?model=${model}&custom_model=${customModelKey}`)
+            location.replace(`index.html?model=${model}&custom_model=${customModelKey}`)
           }
         }
         recentListEl.appendChild(recentEl)
@@ -1805,7 +1805,7 @@
       li.className = 'modelOption';
       li.innerHTML = customName;
       li.onclick = () => {
-        location.replace(`emulator.html?model=${modelId}&custom_model=${customCode}`)
+        location.replace(`index.html?model=${modelId}&custom_model=${customCode}`)
       }
       ul.appendChild(li);
     }
@@ -2919,7 +2919,7 @@
     await localforage.setItem(`${customKey}-face`, customFace);
     await localforage.setItem(`${customKey}-keylog`, customKeylog);
     alert(CustomModelAddSuccess.innerText);
-    location.replace(`emulator.html?model=${model}&custom_model=${timestamp}`);
+    location.replace(`index.html?model=${model}&custom_model=${timestamp}`);
   }
 
   const toggleMenu = () => {
