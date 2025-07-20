@@ -1,0 +1,516 @@
+    @font-face {
+        font-family: "CASIO ClassWiz CW01";
+        src: url("font/CASIOClassWizCW01.ttf?1693321200") format("truetype");
+    }
+
+    @font-face {
+        font-family: "ES03";
+        src: url("font/ES03.ttf") format("truetype");
+    }
+
+    .CASIOClassWiz {
+        font-family: "CASIO ClassWiz" !important;
+    }
+
+    .CASIOClassWizCW01 {
+        font-family: "CASIO ClassWiz CW01" !important;
+    }
+
+    .ES04 {
+        font-family: "ES04" !important;
+    }
+
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #e0e1df;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    svg {
+        vertical-align: middle;
+    }
+
+    #hud {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        text-align: center;
+        background-color: rgba(224, 225, 223, 0.5);
+        display: flex;
+        justify-content: center;
+        z-index: 1;
+        padding: 2px 0;
+    }
+
+    #hud a {
+        padding: 2px 5px;
+        height: 22px;
+    }
+
+    .hud-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .menu-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    #container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: left top;
+        background-size: cover;
+    }
+
+    #infoOutput {
+        width: 12rem;
+        height: 1.2rem;
+        margin: 1px 0;
+    }
+
+    #infoOutput.keylog {
+        font-size: 1rem;
+        user-select: none;
+        cursor: default;
+    }
+
+    #status {
+        position: absolute;
+        width: 278px;
+    }
+
+    #status.EY {
+        top: 40px;
+        left: 44px;
+    }
+
+    #status.CY {
+        top: 46px;
+        left: 48px;
+    }
+
+    #status.ESP2 {
+        top: 46px;
+        left: 48px;
+    }
+
+    #status.ESP {
+        top: 133px;
+        left: 64px;
+    }
+
+    #status.ES {
+        top: 127px;
+        left: 62px;
+    }
+
+    #status > * > * {
+        /* The initial state is to hide all the status icons because no model has been selected. */
+        opacity: 0;
+    }
+
+    #screen {
+        position: absolute;
+        width: 278px;
+    }
+
+    #screen.EY {
+        top: 54px;
+        left: 44px;
+    }
+
+    #screen.CY {
+        top: 60px;
+        left: 48px;
+    }
+
+    #screen.ESP2 {
+        top: 60px;
+        left: 48px;
+    }
+
+    #screen.ESP {
+        top: 148px;
+        left: 64px;
+    }
+
+    #screen.ES {
+        top: 142px;
+        left: 62px;
+    }
+
+    .pixelated {
+        /* http://phrogz.net/tmp/canvas_image_zoom.html */
+        image-rendering: pixelated;
+    }
+
+    #keypad > * > * {
+        position: absolute;
+    }
+
+    .active,
+    #keypad > * > *:active {
+        backdrop-filter: invert(1);
+    }
+
+    #modelList {
+        background-color: #e0e1df;
+        margin: 2em auto;
+        overflow-y: scroll;
+        height: calc(100vh - 2em);
+        max-width: 450px;
+        padding: 0 1em;
+        color: #000;
+        user-select: none;
+    }
+
+    #modelList div {
+        margin: 1rem 0;
+    }
+
+    #modelList div:nth-child(2) {
+        margin-top: 4rem;
+    }
+
+    #modelList div:last-child ul:last-child {
+        margin-bottom: 3rem;
+    }
+
+    #modelList > header {
+        position: absolute;
+        background-color: inherit;
+        width: 100%;
+        max-width: 450px;
+        padding: 15px 0 10px 0;
+        height: 1.5em;
+        margin: 0;
+    }
+
+    #modelList > header .title {
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    #modelList > header .close {
+        font-weight: bold;
+        float: right;
+        margin-right: 2em;
+        cursor: pointer;
+        font-size: 1.5em;
+    }
+
+    #modelList > header .close::before {
+        content: '×';
+    }
+
+    .modelRamList li, #modelList li {
+        padding: 10px 20px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: #d1d2d0;
+        white-space: normal;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .modelOption {
+        padding-top: 0.5em;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: currentcolor;
+        border-radius: 4px;
+    }
+
+    .modelCountry {
+        padding: 0;
+        margin: 0 0 5px 0;
+    }
+
+    .modelList {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-inline-start: 0;
+    }
+
+    .modelRamOption {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    dialog {
+        top: 0;
+        margin: 2.6em auto;
+        width: auto;
+        max-width: 450px;
+        height: 90vh;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    dialog > header {
+        padding: 15px 1em 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    dialog > header h2 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    dialog > header .close {
+        font-size: 1.5em;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+        color: gray;
+        background: none;
+        padding: 0;
+        border: 0;
+    }
+
+    dialog > header .close::before {
+        content: "×";
+    }
+
+    dialog > header .close:hover {
+        color: #404040;
+    }
+
+    dialog > section {
+        overflow: auto;
+        padding: 0 1em;
+    }
+
+    dialog > section .group {
+        margin-bottom: 20px;
+    }
+
+    dialog > section .group h3 {
+        margin-top: 0;
+    }
+
+    dialog > section .group .sub-group {
+        margin: 0 20px 20px;
+    }
+
+    dialog .button-container {
+        display: flex;
+    }
+
+    dialog .button {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 5px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        color: #000;
+        background-color: #fff;
+        user-select: none;
+    }
+
+    dialog .button.enable {
+        background-color: #ccc;
+    }
+
+    dialog .button:hover {
+        background-color: #ccc;
+    }
+
+    dialog .button:active {
+        background-color: #aaa;
+    }
+
+    dialog .button.clear {
+        background-color: #ffcc66;
+        color: #fff;
+        border: 2px solid #ffcc00;
+    }
+
+    dialog .button.clear:hover {
+        background-color: #ab9966;
+    }
+
+    dialog .button.stop {
+        background-color: #ff6666;
+        color: #fff;
+        border: 2px solid #ff0000;
+    }
+
+    dialog .button.stop:hover {
+        background-color: #ab6666;
+    }
+
+    dialog .flow, dialog > section .flow, dialog > section .sub-group.flow {
+        margin-bottom: 5px;
+    }
+
+    dialog .bottom {
+        height: 10vh;
+        width: 100%;
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+        margin-left: 10px;
+        transform: scale(1.2);
+    }
+
+    input[type="text"] {
+        width: 100%;
+    }
+
+    .select-full {
+        width: 100%;
+        height: 2rem;
+        font-size: 1.2rem;
+    }
+
+    .setting-menu-icon-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    .settings-menu-icon {
+        width: 1.6em;
+        height: 1.6em;
+    }
+
+    #screenshotPreview {
+        position: fixed;
+        top: -100vh;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: calc(100vw - 20px);
+        opacity: 0;
+        transition: top 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    #screenshotPreview.appear {
+        top: 35%;
+        opacity: 1;
+    }
+
+    .menu-container {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        overflow: hidden;
+        backdrop-filter: blur(0);
+        transition: backdrop-filter 0.3s ease-in-out;
+        display: none;
+        z-index: 2;
+    }
+
+    .menu-container.menu-active {
+        display: block;
+        background-color: #000;
+        opacity: 0.6;
+    }
+
+    .menu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70vw;
+        max-width: 400px;
+        min-width: 250px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        color: #000;
+        background-color: #b0b0b0;
+        transform: translateX(-100%);
+        transition: transform 0.2s ease-in-out;
+        user-select: none;
+        z-index: 3;
+    }
+
+    .menu.menu-active {
+        transform: none;
+    }
+
+    .menu-list {
+        padding: 0;
+        margin: 2.6em 20px auto;
+    }
+
+    .menu-item {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 0;
+        margin: 5px 0;
+        cursor: pointer;
+    }
+
+    .menu-info {
+        color: #777;
+        font-size: 12px;
+        text-align: center;
+        padding: 0.5rem 0 0.7em;
+        border-top: 1px solid #ccc;
+    }
+
+    .menu-info a {
+        color: #777;
+        text-decoration: underline;
+    }
+
+    #keylogPreview, #autoKeyInputFont, #autoKeyInputText, #autoKeyPreview {
+        overflow-wrap: break-word;
+        word-break: break-all;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.4rem;
+        margin: 0 5px;
+        min-height: 4rem;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .blink {
+        animation: blink 800ms 2;
+    }
